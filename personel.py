@@ -39,4 +39,4 @@ class Personel:
 
         
     def __str__(self):
-        return f"Personel No: {self.__personel_no},Personel Adı: {self.__ad},Personel Soyadı: {self.__soyad},Departmanı: {self.__departman}Maaşı: {self.__maas}"
+        return f"Personel No:{self.__personel_no},Personel Adı: {self.__ad},Personel Soyadı: {self.__soyad},Departmanı: {self.__departman}Maaşı: {self.__maas}"
