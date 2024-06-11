@@ -4,31 +4,40 @@ from hemsire import Hemsire
 from hasta import Hasta
 from personel import Personel
 
-
+# Hata kontrolü için try-except bloğu
 try:
+    # Personel sınıfından iki nesne oluştur
     personel1 = Personel(1, "Halil", "Çulha", "Muhasabe", 20000)
     personel2 = Personel(2, "Arda", "Yılmaz", "Ar-Ge", 30500)
 
+    # Personel nesnelerini yazdır
     print(f"{personel1.__str__()} \n{personel2.__str__()}\n")
     
+    # Doktor sınıfından üç nesne oluştur
     doktor1 = Doktor(3, "Fidan", "Kılıç", "Ortopedi", 40000, "Kırık Cerrahisi", 10, "AKUT Hastanesi")
     doktor2 = Doktor(4, "Fatma", "Ergün", "Kardiyoloji", 45000, "Pediatrik Kardiyoloji", 12, "EKOL Hastanesi")
     doktor3 = Doktor(5, "Ahmet", "Güven", "Nöröloji", 60000, "İnme ve Vasküler Nöroloji", 4, "KAPU Hastanesi")
 
+    # Doktor nesnelerini yazdır
     print(f"{doktor1.__str__()} \n{doktor2.__str__()} \n{doktor3.__str__()} \n")
 
+    # Hemşire sınıfından üç nesne oluştur
     hemsire1 = Hemsire(6, "Onur", "Kağan", "Pediatri", 25000, 10, "Neonatoloji", "Karşıyaka Hastanesi")
     hemsire2 = Hemsire(7, "Cansu", "Demir", "Yoğun Bakım", 20500, 8, "Nefrolog", "Fenerbahçe Hastanesi")
     hemsire3 = Hemsire(8, "Ayşe", "Keskin", "Acil", 18000, 9, "Travma Cerrahı", "KSK Hastanesi")
 
+    # Hemşire nesnelerini yazdır
     print(f"{hemsire1.__str__()} \n{hemsire2.__str__()} \n{hemsire3.__str__()} \n")
 
+    # Hasta sınıfından üç nesne oluştur
     hasta1 = Hasta(1, "Anıl", "Kara", "1998-02-03", "Enfeksiyon", "Normal")
     hasta2 = Hasta(2, "Ali", "Koç", "1986-07-30", "Kırık", "Özel")
     hasta3 = Hasta(3, "Aziz", "Yıldırım", "2001-10-05", "Grip", "Özel")
 
+    # Hasta nesnelerini yazdır
     print(f"{hasta1.__str__()} \n{hasta2.__str__()} \n{hasta3.__str__()} \n")
 
+    # Verileri bir sözlükte birleştir
     data = {
             "personel_no": [personel1.get_personel_no(), personel2.get_personel_no(), doktor1.get_personel_no(), doktor2.get_personel_no(), doktor3.get_personel_no(), hemsire1.get_personel_no(), hemsire2.get_personel_no(), hemsire3.get_personel_no(), 0, 0, 0],
             "ad": [personel1.get_ad(), personel2.get_ad(), doktor1.get_ad(), doktor2.get_ad(), doktor3.get_ad(), hemsire1.get_ad(), hemsire2.get_ad(), hemsire3.get_ad(), hasta1.get_ad(), hasta2.get_ad(), hasta3.get_ad()],
@@ -45,29 +54,37 @@ try:
             "hastalik": [0, 0, 0, 0, 0, 0, 0, 0, hasta1.get_hastalik(), hasta2.get_hastalik(), hasta3.get_hastalik()],
             "tedavi": [0, 0, 0, 0, 0, 0, 0, 0, hasta1.get_tedavi(), hasta2.get_tedavi(), hasta3.get_tedavi()]
         }
-       
+    
+    # Sözlükten DataFrame oluştur
     datafr = pd.DataFrame(data)
+    
+    # Doğum tarihlerini datetime formatına çevir
     datafr['dogum_tarihi'] = pd.to_datetime(datafr['dogum_tarihi'])
 
+    # Uzmanlık alanlarına göre doktor sayılarını hesapla ve yazdır
     doktor_sayisi = datafr[datafr['Uzmanlik Alanlari:'] != 0].groupby('Uzmanlik Alanlari:').size()
     print(f"Toplam Doktor sayısı: {sum(doktor_sayisi)} \n{doktor_sayisi.to_string(dtype=False)} \n")
 
+    # 5 yıldan fazla deneyime sahip doktorların sayısını hesapla ve yazdır
     bes_yil_doktor = datafr[(datafr['deneyim_yili'] > 5) & (datafr['deneyim_yili'] != 0)].shape[0]
     print(f"5 yıldan daha fazla deneyime sahip doktorların sayısı: {bes_yil_doktor}\n")
 
+    # Hastaları al ve adlarına göre alfabetik sırala
     hastalar = datafr[datafr['hasta_no'] != 0]
     yeni_hastalar = hastalar.sort_values(by=['ad'])
     print(f"Alfabetik sıralanmış hasta listesi: {yeni_hastalar}\n")
 
+    # Maaşı 7000 TL üzerinde olan personelleri al ve yazdır
     maas_7000 = datafr[datafr['maas'] > 7000]
     print(f"Maaşı 7000 TL üzerinde olan personeller: {maas_7000}\n")
 
+    # 1990 sonrası doğan hastaları al ve yazdır
     dogum_1990 = datafr[datafr['dogum_tarihi'] >= '1990-01-01']
     print(f"1990 sonrası doğan hastalar: {dogum_1990}\n")
 
-
+    # Yeni bir DataFrame oluştur ve bazı sütunları seç
     yeni_datafr = datafr[['ad', 'soyad', 'departman', 'maas', 'Uzmanlik Alanlari:', 'deneyim_yili', 'hastalik', 'tedavi']]
     print(f"Yeni DataFrame: {yeni_datafr}\n")
   
 except Exception:
-    print(f"Bir hata oluştu:")
+    print(f"Bir hata oluştu:") 
