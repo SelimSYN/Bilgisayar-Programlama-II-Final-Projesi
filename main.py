@@ -7,32 +7,32 @@ from personel import Personel
 # Hata kontrolü için try-except bloğu
 try:
     # Personel sınıfından iki nesne oluştur
-    personel1 = Personel(1, "Halil", "Çulha", "Muhasabe", 20000)
-    personel2 = Personel(2, "Arda", "Yılmaz", "Ar-Ge", 30500)
+    personel1 = Personel(1, "Veli", "Arslan", "Hademe", 6000)
+    personel2 = Personel(2, "Tuğran", "Yılmaz", "Laborant", 20500)
 
     # Personel nesnelerini yazdır
     print(f"{personel1.__str__()} \n{personel2.__str__()}\n")
     
     # Doktor sınıfından üç nesne oluştur
-    doktor1 = Doktor(3, "Fidan", "Kılıç", "Ortopedi", 40000, "Kırık Cerrahisi", 10, "AKUT Hastanesi")
-    doktor2 = Doktor(4, "Fatma", "Ergün", "Kardiyoloji", 45000, "Pediatrik Kardiyoloji", 12, "EKOL Hastanesi")
-    doktor3 = Doktor(5, "Ahmet", "Güven", "Nöröloji", 60000, "İnme ve Vasküler Nöroloji", 4, "KAPU Hastanesi")
+    doktor1 = Doktor(3, "Serkan", "Seyhan", "Dahiliye", 100000, "Dahiliye", 10, "Kadın Doğum Hastanesi")
+    doktor2 = Doktor(4, "Fatma", "Ergün", "Kardiyoloji", 65000, "Yetişkin Kardiyoloji", 12, "Aydın Hastanesi")
+    doktor3 = Doktor(5, "Mihriban", "Gül", "Kardiyoloji", 80000, "Çocuk Kardiyoloji", 4, "EGE Hastanesi")
 
     # Doktor nesnelerini yazdır
     print(f"{doktor1.__str__()} \n{doktor2.__str__()} \n{doktor3.__str__()} \n")
 
     # Hemşire sınıfından üç nesne oluştur
-    hemsire1 = Hemsire(6, "Onur", "Kağan", "Pediatri", 25000, 10, "Neonatoloji", "Karşıyaka Hastanesi")
-    hemsire2 = Hemsire(7, "Cansu", "Demir", "Yoğun Bakım", 20500, 8, "Nefrolog", "Fenerbahçe Hastanesi")
-    hemsire3 = Hemsire(8, "Ayşe", "Keskin", "Acil", 18000, 9, "Travma Cerrahı", "KSK Hastanesi")
+    hemsire1 = Hemsire(6, "Ali", "Veli", "Dahiliye", 15000, 10, "KBB", "Denizli Hastanesi")
+    hemsire2 = Hemsire(7, "Mahmut", "Yılmaz", "Acil", 20500, 7, "Serumcu", "Aydın Hastanesi")
+    hemsire3 = Hemsire(8, "Emre", "Kaan", "Kadın Doğum", 18000, 8, "Ebe", "Nazilli Hastanesi")
 
     # Hemşire nesnelerini yazdır
     print(f"{hemsire1.__str__()} \n{hemsire2.__str__()} \n{hemsire3.__str__()} \n")
 
     # Hasta sınıfından üç nesne oluştur
-    hasta1 = Hasta(1, "Anıl", "Kara", "1998-02-03", "Enfeksiyon", "Normal")
-    hasta2 = Hasta(2, "Ali", "Koç", "1986-07-30", "Kırık", "Özel")
-    hasta3 = Hasta(3, "Aziz", "Yıldırım", "2001-10-05", "Grip", "Özel")
+    hasta1 = Hasta(1, "Demir", "Semerci", "1968-02-13", "Enfeksiyon", "Normal")
+    hasta2 = Hasta(2, "Umut", "Bulut", "1956-07-20", "Kırık", "Özel")
+    hasta3 = Hasta(3, "Emre", "Eren", "2011-10-05", "Su Çiçeği", "Özel")
 
     # Hasta nesnelerini yazdır
     print(f"{hasta1.__str__()} \n{hasta2.__str__()} \n{hasta3.__str__()} \n")
@@ -63,16 +63,16 @@ try:
 
     # Uzmanlık alanlarına göre doktor sayılarını hesapla ve yazdır
     doktor_sayisi = datafr[datafr['Uzmanlik Alanlari:'] != 0].groupby('Uzmanlik Alanlari:').size()
-    print(f"Toplam Doktor sayısı: {sum(doktor_sayisi)} \n{doktor_sayisi.to_string(dtype=False)} \n")
+    print(f"Toplam Hekim sayısı: {sum(doktor_sayisi)} \n{doktor_sayisi.to_string(dtype=False)} \n")
 
     # 5 yıldan fazla deneyime sahip doktorların sayısını hesapla ve yazdır
     bes_yil_doktor = datafr[(datafr['deneyim_yili'] > 5) & (datafr['deneyim_yili'] != 0)].shape[0]
-    print(f"5 yıldan daha fazla deneyime sahip doktorların sayısı: {bes_yil_doktor}\n")
+    print(f"Deneyimi 5 yıldan fazla olan doktor sayısı: {bes_yil_doktor}\n")
 
     # Hastaları al ve adlarına göre alfabetik sırala
     hastalar = datafr[datafr['hasta_no'] != 0]
     yeni_hastalar = hastalar.sort_values(by=['ad'])
-    print(f"Alfabetik sıralanmış hasta listesi: {yeni_hastalar}\n")
+    print(f"Alfabetik sıraya göre hasta listesi: {yeni_hastalar}\n")
 
     # Maaşı 7000 TL üzerinde olan personelleri al ve yazdır
     maas_7000 = datafr[datafr['maas'] > 7000]
@@ -80,7 +80,7 @@ try:
 
     # 1990 sonrası doğan hastaları al ve yazdır
     dogum_1990 = datafr[datafr['dogum_tarihi'] >= '1990-01-01']
-    print(f"1990 sonrası doğan hastalar: {dogum_1990}\n")
+    print(f"1990 yılından sonra doğan hastalar: {dogum_1990}\n")
 
     # Yeni bir DataFrame oluştur ve bazı sütunları seç
     yeni_datafr = datafr[['ad', 'soyad', 'departman', 'maas', 'Uzmanlik Alanlari:', 'deneyim_yili', 'hastalik', 'tedavi']]
