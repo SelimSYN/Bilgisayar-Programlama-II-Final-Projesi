@@ -81,12 +81,12 @@ try:
     # Hastaları al ve adlarına göre alfabetik sırala
     hastalar = data_frame[data_frame['hasta_no'] != 0]
     yeni_hastalar = hastalar.sort_values(by=['ad'])
-    print(f"Alfabetik sıraya göre hasta listesi: {yeni_hastalar}\n")
+    print(f"Alfabetik sıraya göre hasta listesi:\n {yeni_hastalar}\n")
 
 
     # Maaşı 7000 TL üzerinde olan personelleri al ve yazdır
     maas_7000 = data_frame[data_frame['maas'] > 7000]
-    print(f"Maaşı 7000 TL üzerinde olan personeller: {maas_7000}\n")
+    print(f"Maaşı 7000 TL üzerinde olan personeller:\n {maas_7000}\n")
 
 
     # Doğum tarihlerini datetime formatına çevir
@@ -95,12 +95,12 @@ try:
 
     # 1990 sonrası doğan hastaları al ve yazdır
     dogum_1990 = data_frame[data_frame['dogum_tarihi'] >= '1990-01-01']
-    print(f"1990 yılından sonra doğan hastalar: {dogum_1990}\n")
+    print(f"1990 yılından sonra doğan hastalar:\n {dogum_1990}\n")
 
 
     # Yeni bir data_frameame oluştur ve bazı sütunları seç
     yeni_data_frame = data_frame[['ad', 'soyad', 'departman', 'maas', 'uzmanlik', 'deneyim_yili', 'hastalik', 'tedavi']]
-    print(f"Yeni data_frameame: {yeni_data_frame}\n")
+    print(f"Yeni data_frameame:\n {yeni_data_frame}\n")
   
   
 except Exception:
